@@ -2,6 +2,9 @@ from django.shortcuts import render
 from .forms import PredictForm
 import urllib, json
 import time
+from django.http import JsonResponse, HttpResponseRedirect
+from titanic.settings import api_key
+from django.contrib import messages
 
 # Create your views here.
 def homepage(request):
@@ -16,7 +19,6 @@ def homepage(request):
             #call the azure api
             
             url = 'https://ussouthcentral.services.azureml.net/workspaces/8511333baf364f1e8b81a614be00cca6/services/17741fd89eb74908b4885347c9647092/execute?api-version=2.0&details=true'
-            api_key = 'SCXHA4mzar4kBFKsO06nJfNfGscYDjKCtStTnYD9B5CVxaK9Bwx/lbXXrLAV1HKt8NBNH2lQ/Xzq5ClE6N7pIw=='
             headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
 
             data =  {
@@ -39,14 +41,34 @@ def homepage(request):
 
             try:
                 response = urllib.request.urlopen(req)
-                result = response.read()
+                result = response.read() #return this json result to frontend
                 print(result)
+                result = json.loads(result)
+                #success = True
+                prob = result['Results']['output1']['value']['Values'][1][-1]
+                print(prob, "\n\n")
+                messages.info(request, 'Based on your feeatures, there is {} chance that the person will survive'.format(prob))
+                #predicter(request, result, success)
             except Exception as error:
                 print("The request failed with status code: " + str(error))
                 print(error)
-
-            time.sleep(3)
+                success = False
+                #predicter(request, result, success)
+            time.sleep(1)
+            return render(request, 'azure/result.html', {'message':messages})
         else:
             print('form is invalid\n\n')
-        return render(request, 'azure/home.html', {'form' : form})
+        form = PredictForm()
+        return render(request, 'azure/home.html', {'form':form})
 
+def predicter(request, result, success):
+    prob = result['Results']['output1']['value']['Values'][1][-1] #prob e.g 0.88
+    pred_result = result['Results']['output1']['value']['Values'][-2] #survived or no1, 1 or 0
+    if pred_result == 1:
+        the_string = 'survived'
+    else:
+        the_string = 'not survived'
+    if success:
+        return JsonResponse({'success':success})
+    else:
+        return JsonResponse({'success':success})
