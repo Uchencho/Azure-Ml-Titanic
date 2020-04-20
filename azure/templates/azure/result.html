@@ -12,31 +12,26 @@
     crossorigin="anonymous">
 </head>
 <body>
-    
-    <h2>
-        RESULT
-    </h2>
-
-    <br/> <br/> <br/>
-
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    <div class="col-md-4">
-        <a href="{% url 'home' %}" class="btn btn-secondary btn-block btn-lg">
-            <i class="fas fa-stream"></i>Back to homepage
-        </a>
+    <div class="container">
+        <h1 class="col-md-12 offset-md-0 mt-10">
+            THE RESULT
+        </h1>
     </div>
-
+        <br/> <br/>
+    <div class="container">
+        <div class="col-md-12 offset-md-0 mt-10">
+            <h3>
+                Based on the features you inputted, uchencho's model predicts, with {{ probability }}% certaintity that 
+                {{ name }} will {{ the_string }} the famous titanic crash
+            </h3>
+            <br/> <br/>
+            <div class="col-md-6">
+                <a href="{% url 'home' %}" class="btn btn-secondary btn-block btn-lg">
+                    <i class="fas fa-stream"></i>Back to homepage
+                </a>
+            </div>
+        </div>
+    </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script>
-        $("#id_btn").click(function () {
-          console.log( $(this).val() );
-        });
-      </script>
 </body>
 </html>

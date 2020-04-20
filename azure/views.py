@@ -14,7 +14,6 @@ def homepage(request):
     else:
         form = PredictForm(request.POST)
         if form.is_valid():
-            print("it got here\n\n")
             obj = form.save(commit = False)
             #call the azure api
             
@@ -42,33 +41,23 @@ def homepage(request):
             try:
                 response = urllib.request.urlopen(req)
                 result = response.read() #return this json result to frontend
-                print(result)
+                print(result, "\n\n")
                 result = json.loads(result)
-                #success = True
                 prob = result['Results']['output1']['value']['Values'][1][-1]
-                print(prob, "\n\n")
+                prob = round(float(prob), 2) * 100
+                pred_result = result['Results']['output1']['value']['Values'][1][-2]
+                if pred_result == '1':
+                    the_string = "survived"
+                else:
+                    the_string = 'not survive'
+                name = obj.name
+                print(prob, "\n\n", pred_result, '\n\n', type(pred_result), "\n\n", the_string, "\n\n")
                 messages.info(request, 'Based on your feeatures, there is {} chance that the person will survive'.format(prob))
-                #predicter(request, result, success)
+                return render(request, 'azure/result.html', {'message':messages, 'probability':prob, 'name':name, 'the_string': the_string})
             except Exception as error:
                 print("The request failed with status code: " + str(error))
                 print(error)
-                success = False
-                #predicter(request, result, success)
-            time.sleep(1)
-            return render(request, 'azure/result.html', {'message':messages})
         else:
             print('form is invalid\n\n')
         form = PredictForm()
         return render(request, 'azure/home.html', {'form':form})
-
-def predicter(request, result, success):
-    prob = result['Results']['output1']['value']['Values'][1][-1] #prob e.g 0.88
-    pred_result = result['Results']['output1']['value']['Values'][-2] #survived or no1, 1 or 0
-    if pred_result == 1:
-        the_string = 'survived'
-    else:
-        the_string = 'not survived'
-    if success:
-        return JsonResponse({'success':success})
-    else:
-        return JsonResponse({'success':success})
