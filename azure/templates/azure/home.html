@@ -1,9 +1,15 @@
 <!DOCTYPE html>
+{% load crispy_forms_tags %}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/brands.min.js">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+    crossorigin="anonymous">
 </head>
 <body>
     
@@ -11,5 +17,56 @@
         WELCOME UCHENCHO
     </h2>
 
+    <div class="container">
+        <div class="col-md-12 offset-md-0 mt-5">
+            <div class="jumbotron">
+                <h1 class="display-4">Kindly Fill</h1>
+                <p class="lead font-arial">Yes</p>
+                <hr class="my-4">
+                <form action="" method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.name|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.ticket_class|as_crispy_field }}
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.sex|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.age|as_crispy_field }}
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.siblings|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.parents|as_crispy_field }}
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-success  btn-block btn-lg">
+                                <i class="fas fa-database"></i> Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
