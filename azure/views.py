@@ -47,7 +47,7 @@ def homepage(request):
                 prob = round(float(prob), 2) * 100
                 pred_result = result['Results']['output1']['value']['Values'][1][-2]
                 if pred_result == '1':
-                    the_string = "survived"
+                    the_string = "survive"
                 else:
                     the_string = 'not survive'
                 name = obj.name
@@ -57,6 +57,7 @@ def homepage(request):
             except Exception as error:
                 print("The request failed with status code: " + str(error))
                 print(error)
+                #return
         else:
             print('form is invalid\n\n')
         form = PredictForm()

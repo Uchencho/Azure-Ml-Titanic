@@ -36,6 +36,9 @@ body#bg-img:after {
 text-align: center;
 padding: 0.1rem;
 color: #fff;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 a {

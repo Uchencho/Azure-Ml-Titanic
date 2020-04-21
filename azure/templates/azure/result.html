@@ -7,19 +7,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>result</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/brands.min.js">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
     crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
-<body>
+<body id="bg-img">
+    <div class="icons">
+        <h5 class="uche">
+            Contact Me: 
+        </h5>
+        <a href="https://twitter.com/Uchencho_" target="_blank">
+        <i class="fab fa-twitter fa-2x"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/alozie-uche/" target="_blank">
+        <i class="fab fa-linkedin fa-2x"></i>
+        </a>
+        <a href="https://github.com/Uchencho" target="_blank">
+        <i class="fab fa-github fa-2x"></i>
+        </a>
+        <a href="mailto:alozieuche17@gmail.com" target="_blank">
+        <i class="far fa-envelope fa-2x"></i>
+        </a>
+    </div>
     <div class="container">
-        <h1 class="col-md-12 offset-md-0 mt-10">
+        <h1 class="uche col-md-12 offset-md-0 mt-10">
             THE RESULT
         </h1>
     </div>
         <br/> <br/>
     <div class="container">
-        <div class="col-md-12 offset-md-0 mt-10">
+        <div class="uche col-md-12 offset-md-0 mt-10">
             <h3>
                 Based on the features you inputted, uchencho's model predicts, with {{ probability }}% certaintity that 
                 {{ name }} will {{ the_string }} the famous titanic crash
