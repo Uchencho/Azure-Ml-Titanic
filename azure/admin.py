@@ -3,4 +3,7 @@ from django.contrib import admin
 # Register your models here.
 from .models import Predict
 
-admin.site.register(Predict)
+class PredictAdmin(admin.ModelAdmin):
+    list_display = ["name","ticket_class", "sex", "age", "siblings", "parents", "probabiliy", "prediction"]
+
+admin.site.register(Predict, PredictAdmin)

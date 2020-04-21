@@ -42,6 +42,8 @@ class Predict(models.Model):
     age = IntegerRangeField(min_value=1, max_value=100)
     siblings = models.IntegerField(choices=SIBLINGS_CHOICES, default=0)
     parents = models.IntegerField(choices=SIBLINGS_CHOICES, default=0)
+    probabiliy = models.CharField(max_length=10, null=True, blank=True)
+    prediction = models.CharField(max_length=10, null=True, blank=True)
 
     def __str__(self):
         return self.name

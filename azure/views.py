@@ -4,7 +4,6 @@ import urllib, json
 import time
 from django.http import JsonResponse, HttpResponseRedirect
 from titanic.settings import api_key
-from django.contrib import messages
 
 # Create your views here.
 def homepage(request):
@@ -40,8 +39,7 @@ def homepage(request):
 
             try:
                 response = urllib.request.urlopen(req)
-                result = response.read() #return this json result to frontend
-                print(result, "\n\n")
+                result = response.read()
                 result = json.loads(result)
                 prob = result['Results']['output1']['value']['Values'][1][-1]
                 prob = round(float(prob), 2) * 100
@@ -51,9 +49,10 @@ def homepage(request):
                 else:
                     the_string = 'not survive'
                 name = obj.name
-                print(prob, "\n\n", pred_result, '\n\n', type(pred_result), "\n\n", the_string, "\n\n")
-                messages.info(request, 'Based on your feeatures, there is {} chance that the person will survive'.format(prob))
-                return render(request, 'azure/result.html', {'message':messages, 'probability':prob, 'name':name, 'the_string': the_string})
+                obj.probabiliy = prob
+                obj.prediction = the_string
+                obj.save()
+                return render(request, 'azure/result.html', {'probability':prob, 'name':name, 'the_string': the_string})
             except Exception as error:
                 print("The request failed with status code: " + str(error))
                 print(error)
