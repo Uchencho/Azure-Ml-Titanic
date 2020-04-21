@@ -3,6 +3,16 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 
+class IntegerRangeField(models.IntegerField):
+    def __init__(self, verbose_name=None, name = None, min_value=None, max_value=None, **kwargs):
+        self.min_value, self.max_value = min_value, max_value
+        models.IntegerField.__init__(self, verbose_name, name, **kwargs)
+
+    def formfield(self, **kwargs):
+        defaults = {'min_value': self.min_value, 'max_value':self.max_value}
+        defaults.update(kwargs)
+        return super(IntegerRangeField, self).formfield(**defaults)
+
 class Predict(models.Model):
     #survived #pclass #sex #age #sibsp #parch
 
@@ -29,12 +39,7 @@ class Predict(models.Model):
     name = models.CharField(max_length=50)
     ticket_class = models.IntegerField(choices=TICKET_CHOICES, default=0)
     sex = models.CharField(max_length=10, choices=SEX_CHOICES, default='female')
-    age = models.IntegerField(default=25,
-            validators=[
-                MaxValueValidator(100),
-                MinValueValidator(0)
-            ]
-     )
+    age = IntegerRangeField(min_value=1, max_value=100)
     siblings = models.IntegerField(choices=SIBLINGS_CHOICES, default=0)
     parents = models.IntegerField(choices=SIBLINGS_CHOICES, default=0)
 
