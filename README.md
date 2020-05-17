@@ -15,3 +15,6 @@ with the data being sent to Microsoft Azure to retrieve a Prediction
 ### Libraries Used
 - Request
 - Django
+
+
+## Live Project hosted on Heroku [here](https://titanic-azure-uche.herokuapp.com/)
